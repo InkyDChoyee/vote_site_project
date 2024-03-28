@@ -1,7 +1,7 @@
 // 1. 백엔드 서버
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const Vote = require("./models/Vote");
 
 const app = express();

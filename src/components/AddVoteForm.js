@@ -8,7 +8,22 @@ const AddVoteForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3001/api/votes", { title, content });
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("content", content);
+
+      // 추가: axios 요청에 Origin 헤더 포함
+      const response = await axios.post(
+        "http://localhost:3001/api/votes",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Origin: "http://localhost:3000", // 클라이언트 주소
+          },
+        }
+      );
+
       console.log("투표가 추가되었습니다.");
     } catch (error) {
       console.error("투표 추가 오류", error);
