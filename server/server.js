@@ -20,6 +20,18 @@ mongoose
   .then(() => {
     console.log("MongoDB에 연결");
 
+    app.get("/votes", async (req, res) => {
+      try {
+        const votes = await Vote.find();
+        res.status(200).json(votes);
+      } catch (error) {
+        console.error("투표 목록 가져오기 실패: ", error);
+        res
+          .status(500)
+          .json({ error: "투표 목록을 가져오는 중 오류가 발생했습니다" });
+      }
+    });
+
     app.post("/vote", async (req, res) => {
       try {
         const { title, content } = req.body;
