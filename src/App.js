@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import CreateVote from "./components/CreateVote";
 import VoteList from "./components/VoteList";
 
