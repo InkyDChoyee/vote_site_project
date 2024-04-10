@@ -39,7 +39,11 @@ app.get("/votes", async (req, res) => {
 app.post("/vote", async (req, res) => {
   try {
     const { title, content } = req.body;
-    const vote = new Vote({ title, content });
+    // content의 각 요소에서 value 값만 추출하여 문자열 배열로 변환
+    const formattedContent = content.map((option) => option.value);
+    // Vote 모델 인스턴스 생성
+    const vote = new Vote({ title, content: formattedContent });
+    // vote 저장
     await vote.save();
     console.log("저장 성공", vote);
     res.status(201).json({ message: "투표가 저장되었습니다" });

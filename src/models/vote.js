@@ -7,7 +7,11 @@ const voteSchema = new mongoose.Schema({
     required: true,
   },
   content: {
-    type: [String],
+    type: [
+      {
+        value: String,
+      },
+    ],
     required: true,
   },
 });
