@@ -9,7 +9,8 @@ function CreateVote() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formattedContent = content.map((option) => ({ value: option }));
+      // content를 문자열로만 구성된 배열로 변환
+      const formattedContent = content.map((option) => option.value);
       await axios.post("http://localhost:5000/vote", {
         title,
         content: formattedContent,
