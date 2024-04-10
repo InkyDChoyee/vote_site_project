@@ -11,6 +11,8 @@ function CreateVote() {
     try {
       // content를 문자열로만 구성된 배열로 변환
       const formattedContent = content.map((option) => option.value);
+
+      console.log("Formatted Content:", formattedContent);
       await axios.post("http://localhost:5000/vote", {
         title,
         content: formattedContent,
@@ -25,11 +27,13 @@ function CreateVote() {
     const updatedOptions = [...content];
     updatedOptions[index] = value;
     setContent(updatedOptions);
+    console.log("Updated Options:", updatedOptions);
   };
 
   const handleAddOption = () => {
     setContent([...content, newOption]);
     setNewOption("");
+    console.log("Content:", content);
   };
 
   return (
