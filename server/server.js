@@ -38,10 +38,20 @@ mongoose
         const vote = new Vote({ title, content });
         await vote.save();
         console.log("저장 성공", vote);
-        res.status(201).json({ message: "투표가 저장되었습니다." });
+        res.status(201).json({ message: "투표가 저장되었습니다" });
       } catch (error) {
         console.error("저장 실패", error);
-        res.status(500).json({ error: "투표 저장 중 오류가 발생했습니다." });
+        res.status(500).json({ error: "투표 저장 중 오류가 발생했습니다" });
+      }
+    });
+
+    app.delete("/vote", async (req, res) => {
+      try {
+      } catch (error) {
+        console.error("삭제 실패", error);
+        res
+          .status(500)
+          .json({ error: "투표 목록을 삭제하는 중 오류가 발생했습니다" });
       }
     });
   })
