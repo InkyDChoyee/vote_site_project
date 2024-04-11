@@ -36,6 +36,18 @@ app.get("/votes", async (req, res) => {
   }
 });
 
+app.get("/vote/:id", async (req, res) => {
+  try {
+    const votes = await Vote.findById(req.params.id);
+    res.status(200).json(votes);
+  } catch (error) {
+    console.error("투표 불러오기 실패: ", error);
+    res
+      .status(500)
+      .json({ error: "투표 목록을 가져오는 중 오류가 발생했습니다" });
+  }
+});
+
 app.post("/vote", async (req, res) => {
   try {
     const { title, formattedContent } = req.body;

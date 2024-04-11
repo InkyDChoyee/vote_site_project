@@ -1,17 +1,9 @@
+// VoteList.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function VoteList() {
+function VoteList({ fetchVotes, onSelectVote }) {
   const [votes, setVotes] = useState([]);
-
-  async function fetchVotes() {
-    try {
-      const response = await axios.get("http://localhost:5000/votes");
-      setVotes(response.data);
-    } catch (error) {
-      console.error("투표 목록 가져오기 실패:", error);
-    }
-  }
 
   async function deleteVote(id) {
     try {
@@ -33,6 +25,7 @@ function VoteList() {
         {votes.map((vote) => (
           <li key={vote._id}>
             {vote.title}
+            <button onClick={() => onSelectVote(vote._id)}>보기</button>
             <button onClick={() => deleteVote(vote._id)}>삭제</button>
           </li>
         ))}
