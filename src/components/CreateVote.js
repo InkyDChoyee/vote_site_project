@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function CreateVote({ fetchVote }) {
+function CreateVote({ fetchVotes }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState([{ value: "" }]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formattedContent = content
-        .map((option) => ({ value: option }))
-        .filter((obj) => obj.value !== "");
+      const formattedContent = content.filter((obj) => obj.value !== "");
 
       console.log("Formatted Content:", formattedContent);
       console.log("Content Type:", typeof formattedContent); // content의 데이터 타입 확인
@@ -20,7 +18,7 @@ function CreateVote({ fetchVote }) {
         content: formattedContent,
       });
       alert("투표가 저장되었습니다.");
-      fetchVote();
+      fetchVotes();
     } catch (error) {
       console.error("투표 저장 실패:", error);
     }

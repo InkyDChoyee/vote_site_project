@@ -50,7 +50,7 @@ app.get("/vote/:id", async (req, res) => {
 
 app.post("/vote", async (req, res) => {
   try {
-    const { title, formattedContent } = req.body;
+    const { title, content: formattedContent } = req.body;
     const vote = new Vote({ title, content: formattedContent });
     // vote 저장
     await vote.save();
