@@ -1,22 +1,16 @@
 // VoteList.js
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 
-function VoteList({ fetchVotes, onSelectVote }) {
-  const [votes, setVotes] = useState([]);
-
+function VoteList({ votes, onSelectVote }) {
   async function deleteVote(id) {
     try {
       await axios.delete(`http://localhost:5000/vote/${id}`);
-      fetchVotes(); // 투표 삭제 후 목록 갱신
+      // fetchVotes(); // 이 부분을 제거합니다.
     } catch (error) {
       console.error("투표 삭제 실패: ", error);
     }
   }
-
-  useEffect(() => {
-    fetchVotes(); // 초기 렌더링 시 투표 목록 불러오기
-  }, []);
 
   return (
     <div>
