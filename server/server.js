@@ -38,8 +38,8 @@ app.get("/votes", async (req, res) => {
 
 app.post("/vote", async (req, res) => {
   try {
-    const { title, content } = req.body;
-    const vote = new Vote({ title, content });
+    const { title, formattedContent } = req.body;
+    const vote = new Vote({ title, content: formattedContent });
     // vote 저장
     await vote.save();
     console.log("저장 성공", vote);

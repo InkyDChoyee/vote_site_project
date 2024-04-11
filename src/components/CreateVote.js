@@ -9,8 +9,8 @@ function CreateVote() {
     e.preventDefault();
     try {
       const formattedContent = content
-        .map((option) => ({ value: option.value })) // 배열 요소를 객체로 변환
-        .filter((obj) => obj.value !== ""); // 빈 값을 제외하고 변환
+        .map((option) => ({ value: option }))
+        .filter((obj) => obj.value !== "");
 
       console.log("Formatted Content:", formattedContent);
       console.log("Content Type:", typeof formattedContent); // content의 데이터 타입 확인
