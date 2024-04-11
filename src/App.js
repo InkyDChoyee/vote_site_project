@@ -40,7 +40,11 @@ function App() {
   return (
     <div>
       <CreateVote fetchVotes={fetchVotes} />
-      <VoteList votes={votes} onSelectVote={handleSelectVote} />
+      <VoteList
+        fetchVotes={fetchVotes}
+        votes={votes}
+        onSelectVote={handleSelectVote}
+      />
       {selectedVoteId && (
         <VoteDetail voteId={selectedVoteId} fetchVote={fetchVote} />
       )}

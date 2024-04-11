@@ -2,11 +2,11 @@
 import React from "react";
 import axios from "axios";
 
-function VoteList({ votes, onSelectVote }) {
+function VoteList({ fetchVotes, votes, onSelectVote }) {
   async function deleteVote(id) {
     try {
       await axios.delete(`http://localhost:5000/vote/${id}`);
-      // fetchVotes(); // 이 부분을 제거합니다.
+      await fetchVotes(); // fetchVotes 함수가 완료될 때까지 기다립니다.
     } catch (error) {
       console.error("투표 삭제 실패: ", error);
     }
