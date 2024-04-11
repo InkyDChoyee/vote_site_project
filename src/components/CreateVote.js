@@ -3,16 +3,18 @@ import axios from "axios";
 
 function CreateVote() {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState([]);
-  const [newOption, setNewOption] = useState("");
+  const [content, setContent] = useState([{ value: "" }]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // content를 문자열로만 구성된 배열로 변환
-      const formattedContent = content.map((option) => option.value);
+      const formattedContent = content
+        .map((option) => ({ value: option.value })) // 배열 요소를 객체로 변환
+        .filter((obj) => obj.value !== ""); // 빈 값을 제외하고 변환
 
       console.log("Formatted Content:", formattedContent);
+      console.log("Content Type:", typeof formattedContent); // content의 데이터 타입 확인
+
       await axios.post("http://localhost:5000/vote", {
         title,
         content: formattedContent,
@@ -25,15 +27,13 @@ function CreateVote() {
 
   const handleOptionChange = (index, value) => {
     const updatedOptions = [...content];
-    updatedOptions[index] = value;
+    updatedOptions[index] = { value: value }; // 사용자가 입력한 값을 value 속성에 저장
     setContent(updatedOptions);
     console.log("Updated Options:", updatedOptions);
   };
 
   const handleAddOption = () => {
-    setContent([...content, newOption]);
-    setNewOption("");
-    console.log("Content:", content);
+    setContent([...content, { value: "" }]); // 새로운 항목 추가
   };
 
   return (
@@ -55,21 +55,14 @@ function CreateVote() {
             <div key={index}>
               <input
                 type="text"
-                value={option}
+                value={option.value}
                 onChange={(e) => handleOptionChange(index, e.target.value)}
               />
             </div>
           ))}
-          <div>
-            <input
-              type="text"
-              value={newOption}
-              onChange={(e) => setNewOption(e.target.value)}
-            />
-            <button type="button" onClick={handleAddOption}>
-              +
-            </button>
-          </div>
+          <button type="button" onClick={handleAddOption}>
+            추가
+          </button>
         </label>
         <br />
         <button type="submit">저장</button>

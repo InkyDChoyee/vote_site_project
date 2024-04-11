@@ -39,8 +39,7 @@ app.get("/votes", async (req, res) => {
 app.post("/vote", async (req, res) => {
   try {
     const { title, content } = req.body;
-    const formattedContent = content.map((option) => option.value);
-    const vote = new Vote({ title, content: formattedContent });
+    const vote = new Vote({ title, content });
     // vote 저장
     await vote.save();
     console.log("저장 성공", vote);
