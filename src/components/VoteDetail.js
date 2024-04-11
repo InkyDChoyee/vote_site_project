@@ -26,8 +26,7 @@ function VoteDetail({ voteId, fetchVote }) {
   return (
     <div>
       <h2>{vote.title}</h2>
-      <p>작성자: {vote.author}</p>
-      <p>내용: {vote.content}</p>
+      <p>내용: {vote.content.map((item) => item.value).join(", ")}</p>
     </div>
   );
 }

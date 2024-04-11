@@ -39,8 +39,8 @@ app.get("/votes", async (req, res) => {
 
 app.get("/vote/:id", async (req, res) => {
   try {
-    const votes = await Vote.findById(req.params.id);
-    res.status(200).json(votes);
+    const vote = await Vote.findById(req.params.id);
+    res.status(200).json(vote);
   } catch (error) {
     console.error("투표 불러오기 실패: ", error);
     res
@@ -78,6 +78,7 @@ app.delete("/vote/:id", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log("서버가 5000 포트에서 실행 중입니다.");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`서버가 포트 ${PORT}에서 실행 중입니다.`);
 });
