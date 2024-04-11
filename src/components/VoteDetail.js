@@ -26,7 +26,11 @@ function VoteDetail({ voteId, fetchVote }) {
   return (
     <div>
       <h2>{vote.title}</h2>
-      <p>내용: {vote.content.map((item) => item.value).join(", ")}</p>
+      <ul>
+        {vote.content.map((item, index) => (
+          <li key={index}>{item.value}</li>
+        ))}
+      </ul>
     </div>
   );
 }
