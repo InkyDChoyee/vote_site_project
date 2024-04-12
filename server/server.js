@@ -78,6 +78,27 @@ app.delete("/vote/:id", async (req, res) => {
   }
 });
 
+app.post("/vote/:id/click", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { itemId } = req.body;
+
+    // 특정 투표 항목의 클릭 정보 업데이트
+    await Vote.findOneAndUpdate(
+      { _id: id, "content.value": itemId },
+      { $inc: { "content.$.clicks": 1 } },
+      { upsert: true, new: true }
+    );
+
+    console.log("클릭 정보가 저장되었습니다.");
+    res.status(200).json({ message: "클릭 정보가 저장되었습니다." });
+  } catch (error) {
+    console.error("클릭 정보 저장 실패: ", error);
+    res
+      .status(500)
+      .json({ error: "클릭 정보를 저장하는 중 오류가 발생했습니다." });
+  }
+});
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`서버가 포트 ${PORT}에서 실행 중입니다.`);

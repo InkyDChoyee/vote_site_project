@@ -10,6 +10,7 @@ const voteSchema = new mongoose.Schema({
     type: [
       {
         value: String,
+        clicks: { type: Number, default: 0 },
       },
     ],
     required: true,
