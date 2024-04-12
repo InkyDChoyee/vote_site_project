@@ -45,9 +45,7 @@ function App() {
         votes={votes}
         onSelectVote={handleSelectVote}
       />
-      {selectedVoteId && (
-        <VoteDetail voteId={selectedVoteId} fetchVote={fetchVote} />
-      )}
+      {selectedVoteId && <VoteDetail voteId={selectedVoteId} />}
     </div>
   );
 }

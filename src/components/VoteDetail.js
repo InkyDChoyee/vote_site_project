@@ -2,8 +2,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function VoteDetail({ voteId, fetchVote }) {
+function VoteDetail({ voteId }) {
   const [vote, setVote] = useState(null);
+
+  const [totalClicks, setTotalClicks] = useState(0);
+  const [itemClicks, setItemClicks] = useState({});
 
   useEffect(() => {
     async function fetchVoteData() {
@@ -19,6 +22,13 @@ function VoteDetail({ voteId, fetchVote }) {
     fetchVoteData();
   }, [voteId]); // voteId가 변경될 때마다 해당 투표의 정보를 다시 가져옴
 
+  const handleClick = (index) => {
+    setTotalClicks(totalClicks + 1);
+    const updatedItemClicks = { ...itemClicks };
+    updatedItemClicks[index] = (updatedItemClicks[index] || 0) + 1;
+    setItemClicks(updatedItemClicks);
+  };
+
   if (!vote) {
     return <div>Loading...</div>;
   }
@@ -28,9 +38,13 @@ function VoteDetail({ voteId, fetchVote }) {
       <h2>{vote.title}</h2>
       <ul>
         {vote.content.map((item, index) => (
-          <li key={index}>{item.value}</li>
+          <li key={index} onClick={() => handleClick(index)}>
+            {item.value} - {itemClicks[index] || 0} clicks (
+            {(((itemClicks[index] || 0) / totalClicks) * 100).toFixed(2)}%)
+          </li>
         ))}
       </ul>
+      <p>Total Clicks: {totalClicks}</p>
     </div>
   );
 }
