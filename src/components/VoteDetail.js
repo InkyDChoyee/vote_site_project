@@ -4,38 +4,43 @@ import axios from "axios";
 
 function VoteDetail({ voteId, fetchVote }) {
   const [vote, setVote] = useState(null);
-
   const [totalClicks, setTotalClicks] = useState(0);
   const [itemClicks, setItemClicks] = useState({});
 
   useEffect(() => {
-    async function fetchVoteData() {
+    async function fetchData() {
       try {
-        const response = await axios.get(
+        const voteResponse = await axios.get(
           `http://localhost:5000/vote/${voteId}`
         );
-        setVote(response.data);
-      } catch (error) {
-        console.error("투표 불러오기 실패: ", error);
-      }
-    }
-    fetchVoteData();
-  }, [voteId]); // voteId가 변경될 때마다 해당 투표의 정보를 다시 가져옴
+        setVote(voteResponse.data);
 
-  useEffect(() => {
-    async function fetchClicks() {
-      try {
-        const response = await axios.get(
+        const clickResponse = await axios.get(
           `http://localhost:5000/vote/${voteId}/clicks`
         );
-        const { clicks } = response.data;
-        // 가져온 클릭 정보를 state에 설정
-        setItemClicks(clicks);
+        const { clicks } = clickResponse.data;
+
+        if (Object.keys(clicks).length === 0) {
+          setTotalClicks(0);
+          setItemClicks({});
+        } else {
+          const updatedItemClicks = {};
+          for (let index = 0; index < vote.content.length; index++) {
+            updatedItemClicks[index] = clicks[index] || 0;
+          }
+          setItemClicks(updatedItemClicks);
+
+          let total = 0;
+          for (const click of Object.values(clicks)) {
+            total += click;
+          }
+          setTotalClicks(total);
+        }
       } catch (error) {
-        console.error("클릭 정보 가져오기 실패: ", error);
+        console.error("데이터 가져오기 실패: ", error);
       }
     }
-    fetchClicks();
+    fetchData();
   }, [voteId]);
 
   const handleClick = async (index) => {
@@ -65,7 +70,10 @@ function VoteDetail({ voteId, fetchVote }) {
         {vote.content.map((item, index) => (
           <li key={index} onClick={() => handleClick(index)}>
             {item.value} - {itemClicks[index] || 0} clicks (
-            {(((itemClicks[index] || 0) / totalClicks) * 100).toFixed(2)}%)
+            {totalClicks === 0
+              ? 0
+              : (((itemClicks[index] || 0) / totalClicks) * 100).toFixed(2)}
+            %)
           </li>
         ))}
       </ul>
