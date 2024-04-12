@@ -99,6 +99,24 @@ app.post("/vote/:id/click", async (req, res) => {
       .json({ error: "클릭 정보를 저장하는 중 오류가 발생했습니다." });
   }
 });
+
+app.get("/vote/:id/clicks", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const vote = await Vote.findById(id);
+    if (!vote) {
+      return res.status(404).json({ error: "투표가 존재하지 않습니다." });
+    }
+    const clicks = vote.content.map((item) => item.clicks);
+    res.status(200).json({ clicks });
+  } catch (error) {
+    console.error("클릭 정보 가져오기 실패: ", error);
+    res
+      .status(500)
+      .json({ error: "클릭 정보를 가져오는 중 오류가 발생했습니다." });
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`서버가 포트 ${PORT}에서 실행 중입니다.`);

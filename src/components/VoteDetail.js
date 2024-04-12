@@ -22,6 +22,22 @@ function VoteDetail({ voteId, fetchVote }) {
     fetchVoteData();
   }, [voteId]); // voteId가 변경될 때마다 해당 투표의 정보를 다시 가져옴
 
+  useEffect(() => {
+    async function fetchClicks() {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/vote/${voteId}/clicks`
+        );
+        const { clicks } = response.data;
+        // 가져온 클릭 정보를 state에 설정
+        setItemClicks(clicks);
+      } catch (error) {
+        console.error("클릭 정보 가져오기 실패: ", error);
+      }
+    }
+    fetchClicks();
+  }, [voteId]);
+
   const handleClick = async (index) => {
     setTotalClicks(totalClicks + 1);
     const updatedItemClicks = { ...itemClicks };
