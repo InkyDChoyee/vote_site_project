@@ -56,7 +56,7 @@ function App() {
           <div className="section_top"></div>
           <MainMenuButton
             showHomeButton={showHomeButton}
-            setShowHomeButton={setShowHomeButton}
+            setShowHomeButton={setShowHomeButton} // setShowHomeButton 함수 전달
             showVoteList={showVoteList}
             setShowVoteList={setShowVoteList}
             showCreateVote={showCreateVote}
@@ -74,6 +74,7 @@ function App() {
             fetchVotes={fetchVotes}
             votes={votes}
             returnToList={returnToList}
+            setShowHomeButton={setShowHomeButton} // setShowHomeButton 함수 전달
           />
         </section>
       </div>
