@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import CreateVote from "./components/CreateVote";
-import VoteList from "./components/VoteList";
-import VoteDetail from "./components/VoteDetail";
 import axios from "axios";
+import "./App.css";
+import ShowComponent from "./components/ShowComponent";
+import MainMenuButton from "./components/MainMenuButton";
 
 function App() {
   const [selectedVoteId, setSelectedVoteId] = useState(null);
@@ -49,46 +49,35 @@ function App() {
   };
 
   return (
-    <div>
-      {!showHomeButton && !showVoteList && !showCreateVote && (
-        <>
-          <button
-            onClick={() => {
-              setShowVoteList(true);
-              setShowHomeButton(true);
-            }}
-          >
-            투표 목록
-          </button>
-          <button
-            onClick={() => {
-              setShowCreateVote(true);
-              setShowHomeButton(true);
-            }}
-          >
-            투표 생성
-          </button>
-        </>
-      )}
-      {showHomeButton && <button onClick={handleHomeButtonClick}>홈</button>}
-      {showCreateVote && (
-        <CreateVote fetchVotes={fetchVotes} onReturnToList={returnToList} />
-      )}
-      {showVoteList && (
-        <VoteList
-          fetchVotes={fetchVotes}
-          votes={votes}
-          onSelectVote={(voteId) => {
-            setSelectedVoteId(voteId);
-            setShowVoteList(false);
-            setShowCreateVote(false);
-            setShowHomeButton(true);
-          }}
-        />
-      )}
-      {selectedVoteId && (
-        <VoteDetail voteId={selectedVoteId} onReturnToList={returnToList} />
-      )}
+    <div className="container">
+      <nav></nav>
+      <div className="content_box">
+        <section>
+          <div className="section_top"></div>
+          <MainMenuButton
+            showHomeButton={showHomeButton}
+            setShowHomeButton={setShowHomeButton}
+            showVoteList={showVoteList}
+            setShowVoteList={setShowVoteList}
+            showCreateVote={showCreateVote}
+            setShowCreateVote={setShowCreateVote}
+          />
+          <ShowComponent
+            showHomeButton={showHomeButton}
+            handleHomeButtonClick={handleHomeButtonClick}
+            showCreateVote={showCreateVote}
+            setShowCreateVote={setShowCreateVote}
+            showVoteList={showVoteList}
+            setShowVoteList={setShowVoteList}
+            selectedVoteId={selectedVoteId}
+            setSelectedVoteId={setSelectedVoteId}
+            fetchVotes={fetchVotes}
+            votes={votes}
+            returnToList={returnToList}
+          />
+        </section>
+      </div>
+      <div className="footer"></div>
     </div>
   );
 }
