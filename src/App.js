@@ -36,7 +36,8 @@ function App() {
 
   const returnToList = () => {
     setSelectedVoteId(null);
-    setShowHomeButton(false);
+    setShowHomeButton(true);
+    setShowVoteList(true);
   };
 
   const handleHomeButtonClick = () => {

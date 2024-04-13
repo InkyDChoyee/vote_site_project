@@ -18,6 +18,7 @@ function VoteList({ fetchVotes, votes, onSelectVote }) {
       <ul>
         {votes.map((vote) => (
           <li key={vote._id}>
+            {/* 투표 항목 클릭 시 onSelectVote 호출 */}
             <p onClick={() => onSelectVote(vote._id)}>{vote.title}</p>
             <button onClick={() => deleteVote(vote._id)}>삭제</button>
           </li>
