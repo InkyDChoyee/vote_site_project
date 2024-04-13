@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import UpdateVote from "./UpdateVote";
+import VoteList from "./VoteList"; // VoteList 컴포넌트 추가
 
-function VoteDetail({ voteId }) {
+function VoteDetail({ voteId, onReturnToList }) {
   const [vote, setVote] = useState(null);
   const [totalClicks, setTotalClicks] = useState(0);
   const [itemClicks, setItemClicks] = useState({});
-  const [isEditing, setIsEditing] = useState(false); // 수정 모드를 나타내는 state
+  const [isEditing, setIsEditing] = useState(false);
+  const [showVoteList, setShowVoteList] = useState(false); // VoteList를 보여줄 상태 추가
 
   useEffect(() => {
     fetchData();
@@ -61,32 +63,47 @@ function VoteDetail({ voteId }) {
 
   const handleUpdateVote = async () => {
     setIsEditing(false);
-    await fetchData(); // 업데이트 후에 투표 데이터 다시 가져오기
+    await fetchData();
+  };
+
+  const handleReturnToList = () => {
+    setShowVoteList(true); // VoteList를 보여주도록 상태 변경
+    // onReturnToList(); // 부모 컴포넌트에서 정의된 목록으로 돌아가기 함수 호출
   };
 
   return (
     <div>
-      {isEditing ? (
-        <UpdateVote voteId={voteId} onEditComplete={handleUpdateVote} />
-      ) : vote ? (
-        <div>
-          <h2>{vote.title}</h2>
-          <button onClick={handleEditClick}>투표 수정하기</button>
-          <ul>
-            {vote.content.map((item, index) => (
-              <li key={index} onClick={() => handleClick(index)}>
-                {item.value} - {itemClicks[index] || 0} clicks (
-                {totalClicks === 0
-                  ? 0
-                  : (((itemClicks[index] || 0) / totalClicks) * 100).toFixed(2)}
-                %)
-              </li>
-            ))}
-          </ul>
-          <p>Total Clicks: {totalClicks}</p>
-        </div>
+      {showVoteList ? ( // VoteList 상태에 따라 VoteList 컴포넌트를 렌더링
+        <VoteList fetchVotes={fetchData} />
       ) : (
-        <div>Loading...</div>
+        <>
+          {isEditing ? (
+            <UpdateVote voteId={voteId} onEditComplete={handleUpdateVote} />
+          ) : vote ? (
+            <div>
+              <h2>{vote.title}</h2>
+              <button onClick={handleEditClick}>투표 수정하기</button>
+              <button onClick={handleReturnToList}>목록으로 돌아가기</button>
+              <ul>
+                {vote.content.map((item, index) => (
+                  <li key={index} onClick={() => handleClick(index)}>
+                    {item.value} - {itemClicks[index] || 0} clicks (
+                    {totalClicks === 0
+                      ? 0
+                      : (
+                          ((itemClicks[index] || 0) / totalClicks) *
+                          100
+                        ).toFixed(2)}
+                    %)
+                  </li>
+                ))}
+              </ul>
+              <p>Total Clicks: {totalClicks}</p>
+            </div>
+          ) : (
+            <div>Loading...</div>
+          )}
+        </>
       )}
     </div>
   );

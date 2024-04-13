@@ -6,7 +6,7 @@ function VoteList({ fetchVotes, votes, onSelectVote }) {
   async function deleteVote(id) {
     try {
       await axios.delete(`http://localhost:5000/vote/${id}`);
-      await fetchVotes(); // fetchVotes 함수가 완료될 때까지 기다립니다.
+      await fetchVotes();
     } catch (error) {
       console.error("투표 삭제 실패: ", error);
     }

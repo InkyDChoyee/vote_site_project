@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useEffect } from "react";
 import CreateVote from "./components/CreateVote";
 import VoteList from "./components/VoteList";
@@ -8,6 +7,9 @@ import axios from "axios";
 function App() {
   const [selectedVoteId, setSelectedVoteId] = useState(null);
   const [votes, setVotes] = useState([]);
+  const [showVoteList, setShowVoteList] = useState(false);
+  const [showCreateVote, setShowCreateVote] = useState(false);
+  const [showHomeButton, setShowHomeButton] = useState(false);
 
   async function fetchVote(voteId) {
     try {
@@ -28,28 +30,60 @@ function App() {
     }
   }
 
-  function handleSelectVote(voteId) {
-    setSelectedVoteId(voteId);
-  }
-
   useEffect(() => {
     fetchVotes();
   }, []);
 
+  const returnToList = () => {
+    setSelectedVoteId(null);
+    setShowHomeButton(false);
+  };
+
+  const handleHomeButtonClick = () => {
+    setSelectedVoteId(null);
+    setShowCreateVote(false);
+    setShowVoteList(false);
+    setShowHomeButton(false);
+  };
+
   return (
     <div>
-      <CreateVote fetchVotes={fetchVotes} />
-      <VoteList
-        fetchVotes={fetchVotes}
-        votes={votes}
-        onSelectVote={handleSelectVote}
-      />
-      {selectedVoteId && (
-        <VoteDetail
-          voteId={selectedVoteId}
-          fetchVote={fetchVote}
-          handleUpdateVote={setSelectedVoteId}
+      {!showHomeButton && !showVoteList && !showCreateVote && (
+        <>
+          <button
+            onClick={() => {
+              setShowVoteList(true);
+              setShowHomeButton(true);
+            }}
+          >
+            투표 목록
+          </button>
+          <button
+            onClick={() => {
+              setShowCreateVote(true);
+              setShowHomeButton(true);
+            }}
+          >
+            투표 생성
+          </button>
+        </>
+      )}
+      {showHomeButton && <button onClick={handleHomeButtonClick}>홈</button>}
+      {showCreateVote && <CreateVote fetchVotes={fetchVotes} />}
+      {showVoteList && (
+        <VoteList
+          fetchVotes={fetchVotes}
+          votes={votes}
+          onSelectVote={(voteId) => {
+            setSelectedVoteId(voteId);
+            setShowVoteList(false);
+            setShowCreateVote(false);
+            setShowHomeButton(true);
+          }}
         />
+      )}
+      {selectedVoteId && (
+        <VoteDetail voteId={selectedVoteId} onReturnToList={returnToList} />
       )}
     </div>
   );

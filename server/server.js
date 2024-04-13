@@ -83,7 +83,6 @@ app.put("/vote/:id", async (req, res) => {
 });
 
 app.delete("/vote/:id", async (req, res) => {
-  // :id 파라미터 추가
   try {
     const { id } = req.params;
     await Vote.findByIdAndDelete(id);
