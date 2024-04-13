@@ -22,8 +22,7 @@ function App() {
   async function fetchVotes() {
     try {
       const response = await axios.get("http://localhost:5000/votes");
-      const votesData = response.data; // 받아온 데이터
-      setVotes(votesData); // 상태 업데이트
+      setVotes(response.data);
     } catch (error) {
       console.error("투표 목록 가져오기 실패:", error);
     }
@@ -34,7 +33,7 @@ function App() {
   }
 
   useEffect(() => {
-    fetchVotes(); // 초기 렌더링 시 투표 목록 불러오기
+    fetchVotes();
   }, []);
 
   return (
@@ -46,7 +45,11 @@ function App() {
         onSelectVote={handleSelectVote}
       />
       {selectedVoteId && (
-        <VoteDetail voteId={selectedVoteId} fetchVote={fetchVote} />
+        <VoteDetail
+          voteId={selectedVoteId}
+          fetchVote={fetchVote}
+          handleUpdateVote={setSelectedVoteId}
+        />
       )}
     </div>
   );

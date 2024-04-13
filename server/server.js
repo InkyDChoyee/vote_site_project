@@ -75,7 +75,7 @@ app.put("/vote/:id", async (req, res) => {
       { new: true }
     );
     console.log("업데이트 성공:", updatedVote);
-    res.status(200).json({ message: "투표가 업데이트되었습니다" });
+    res.status(200).json(updatedVote); // 업데이트된 투표의 정보만 반환
   } catch (error) {
     console.error("업데이트 실패:", error);
     res.status(500).json({ error: "투표 업데이트 중 오류가 발생했습니다" });

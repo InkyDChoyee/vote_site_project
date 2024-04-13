@@ -1,91 +1,93 @@
-// VoteDetail.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import UpdateVote from "./UpdateVote";
 
-function VoteDetail({ voteId, fetchVote }) {
+function VoteDetail({ voteId }) {
   const [vote, setVote] = useState(null);
   const [totalClicks, setTotalClicks] = useState(0);
   const [itemClicks, setItemClicks] = useState({});
+  const [isEditing, setIsEditing] = useState(false); // 수정 모드를 나타내는 state
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const voteResponse = await axios.get(
-          `http://localhost:5000/vote/${voteId}`
-        );
-        setVote(voteResponse.data);
-
-        const clickResponse = await axios.get(
-          `http://localhost:5000/vote/${voteId}/clicks`
-        );
-        const { clicks } = clickResponse.data;
-
-        if (Object.keys(clicks).length === 0) {
-          setTotalClicks(0);
-          setItemClicks({});
-        } else {
-          const updatedItemClicks = {};
-          for (
-            let index = 0;
-            index < voteResponse.data.content.length;
-            index++
-          ) {
-            updatedItemClicks[index] = clicks[index] || 0;
-          }
-          setItemClicks(updatedItemClicks);
-
-          let total = 0;
-          for (const click of Object.values(clicks)) {
-            total += click;
-          }
-          setTotalClicks(total);
-        }
-      } catch (error) {
-        console.error("데이터 가져오기 실패: ", error);
-      }
-    }
-
-    // voteId가 변경되었을 때에만 fetchData 함수를 호출하도록 수정
-    if (voteId !== null) {
-      fetchData();
-    }
+    fetchData();
   }, [voteId]);
 
-  const handleClick = async (index) => {
-    setTotalClicks(totalClicks + 1);
-    const updatedItemClicks = { ...itemClicks };
-    updatedItemClicks[index] = (updatedItemClicks[index] || 0) + 1;
-    setItemClicks(updatedItemClicks);
+  const fetchData = async () => {
+    try {
+      const [voteResponse, clickResponse] = await Promise.all([
+        axios.get(`http://localhost:5000/vote/${voteId}`),
+        axios.get(`http://localhost:5000/vote/${voteId}/clicks`),
+      ]);
+      const { data: voteData } = voteResponse;
+      setVote(voteData);
 
+      const { clicks } = clickResponse.data;
+      if (Object.keys(clicks).length === 0) {
+        setTotalClicks(0);
+        setItemClicks({});
+      } else {
+        const updatedItemClicks = {};
+        voteData.content.forEach((_, index) => {
+          updatedItemClicks[index] = clicks[index] || 0;
+        });
+        setItemClicks(updatedItemClicks);
+        setTotalClicks(
+          Object.values(clicks).reduce((acc, curr) => acc + curr, 0)
+        );
+      }
+    } catch (error) {
+      console.error("데이터 가져오기 실패: ", error);
+    }
+  };
+
+  const handleClick = async (index) => {
     try {
       await axios.post(`http://localhost:5000/vote/${voteId}/click`, {
         itemId: vote.content[index].value,
       });
+      const updatedItemClicks = { ...itemClicks };
+      updatedItemClicks[index] = (updatedItemClicks[index] || 0) + 1;
+      setItemClicks(updatedItemClicks);
+      setTotalClicks(totalClicks + 1);
       console.log("클릭 정보가 서버에 전송되었습니다.");
     } catch (error) {
       console.error("클릭 정보 전송 실패: ", error);
     }
   };
 
-  if (!vote) {
-    return <div>Loading...</div>;
-  }
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleUpdateVote = async () => {
+    setIsEditing(false);
+    await fetchData(); // 업데이트 후에 투표 데이터 다시 가져오기
+  };
 
   return (
     <div>
-      <h2>{vote.title}</h2>
-      <ul>
-        {vote.content.map((item, index) => (
-          <li key={index} onClick={() => handleClick(index)}>
-            {item.value} - {itemClicks[index] || 0} clicks (
-            {totalClicks === 0
-              ? 0
-              : (((itemClicks[index] || 0) / totalClicks) * 100).toFixed(2)}
-            %)
-          </li>
-        ))}
-      </ul>
-      <p>Total Clicks: {totalClicks}</p>
+      {isEditing ? (
+        <UpdateVote voteId={voteId} onEditComplete={handleUpdateVote} />
+      ) : vote ? (
+        <div>
+          <h2>{vote.title}</h2>
+          <button onClick={handleEditClick}>투표 수정하기</button>
+          <ul>
+            {vote.content.map((item, index) => (
+              <li key={index} onClick={() => handleClick(index)}>
+                {item.value} - {itemClicks[index] || 0} clicks (
+                {totalClicks === 0
+                  ? 0
+                  : (((itemClicks[index] || 0) / totalClicks) * 100).toFixed(2)}
+                %)
+              </li>
+            ))}
+          </ul>
+          <p>Total Clicks: {totalClicks}</p>
+        </div>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 }
