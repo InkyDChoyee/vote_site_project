@@ -3,7 +3,12 @@ import axios from "axios";
 
 function CreateVote({ fetchVotes }) {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState([{ value: "" }]);
+  const [content, setContent] = useState([
+    { value: "" },
+    { value: "" },
+    { value: "" },
+    { value: "" },
+  ]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

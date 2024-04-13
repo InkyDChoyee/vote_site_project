@@ -25,7 +25,11 @@ function VoteDetail({ voteId, fetchVote }) {
           setItemClicks({});
         } else {
           const updatedItemClicks = {};
-          for (let index = 0; index < vote.content.length; index++) {
+          for (
+            let index = 0;
+            index < voteResponse.data.content.length;
+            index++
+          ) {
             updatedItemClicks[index] = clicks[index] || 0;
           }
           setItemClicks(updatedItemClicks);
@@ -40,7 +44,11 @@ function VoteDetail({ voteId, fetchVote }) {
         console.error("데이터 가져오기 실패: ", error);
       }
     }
-    fetchData();
+
+    // voteId가 변경되었을 때에만 fetchData 함수를 호출하도록 수정
+    if (voteId !== null) {
+      fetchData();
+    }
   }, [voteId]);
 
   const handleClick = async (index) => {
