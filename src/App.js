@@ -38,6 +38,7 @@ function App() {
     setSelectedVoteId(null);
     setShowHomeButton(true);
     setShowVoteList(true);
+    setShowCreateVote(false);
   };
 
   const handleHomeButtonClick = () => {
@@ -70,7 +71,9 @@ function App() {
         </>
       )}
       {showHomeButton && <button onClick={handleHomeButtonClick}>홈</button>}
-      {showCreateVote && <CreateVote fetchVotes={fetchVotes} />}
+      {showCreateVote && (
+        <CreateVote fetchVotes={fetchVotes} onReturnToList={returnToList} />
+      )}
       {showVoteList && (
         <VoteList
           fetchVotes={fetchVotes}

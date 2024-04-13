@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function CreateVote({ fetchVotes }) {
+function CreateVote({ fetchVotes, onReturnToList }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState([
     { value: "" },
@@ -24,6 +24,7 @@ function CreateVote({ fetchVotes }) {
       });
       alert("투표가 저장되었습니다.");
       fetchVotes();
+      onReturnToList();
     } catch (error) {
       console.error("투표 저장 실패:", error);
     }
