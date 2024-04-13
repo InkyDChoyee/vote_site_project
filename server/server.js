@@ -63,6 +63,25 @@ app.post("/vote", async (req, res) => {
   }
 });
 
+app.put("/vote/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+
+  try {
+    // 투표 업데이트
+    const updatedVote = await Vote.findByIdAndUpdate(
+      id,
+      { title, content },
+      { new: true }
+    );
+    console.log("업데이트 성공:", updatedVote);
+    res.status(200).json({ message: "투표가 업데이트되었습니다" });
+  } catch (error) {
+    console.error("업데이트 실패:", error);
+    res.status(500).json({ error: "투표 업데이트 중 오류가 발생했습니다" });
+  }
+});
+
 app.delete("/vote/:id", async (req, res) => {
   // :id 파라미터 추가
   try {
