@@ -1,9 +1,8 @@
-// VoteDetail.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import UpdateVote from "./UpdateVote";
 
-function VoteDetail({ voteId, onReturnToList }) {
+function VoteDetail({ voteId, onReturnToList, fetchVotes }) {
   const [vote, setVote] = useState(null);
   const [totalClicks, setTotalClicks] = useState(0);
   const [itemClicks, setItemClicks] = useState({});
@@ -60,6 +59,18 @@ function VoteDetail({ voteId, onReturnToList }) {
     setIsEditing(true);
   };
 
+  const handleDeleteVote = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/vote/${voteId}`);
+      console.log("투표가 삭제되었습니다.");
+      fetchData();
+      fetchVotes();
+      await onReturnToList();
+    } catch (error) {
+      console.error("투표 삭제 실패: ", error);
+    }
+  };
+
   const handleUpdateVote = async () => {
     setIsEditing(false);
     await fetchData();
@@ -73,6 +84,7 @@ function VoteDetail({ voteId, onReturnToList }) {
         <div>
           <h2>{vote.title}</h2>
           <button onClick={handleEditClick}>투표 수정하기</button>
+          <button onClick={handleDeleteVote}>삭제</button>
           <button onClick={onReturnToList}>목록으로 돌아가기</button>
           <ul>
             {vote.content.map((item, index) => (

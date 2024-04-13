@@ -7,7 +7,6 @@ function CreateVote({ fetchVotes, onReturnToList }) {
     { value: "" },
     { value: "" },
     { value: "" },
-    { value: "" },
   ]);
 
   const handleSubmit = async (e) => {

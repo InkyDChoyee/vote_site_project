@@ -19,6 +19,9 @@ const ShowComponent = ({
 }) => {
   return (
     <div className="show_component">
+      <div className="home_btn">
+        {showHomeButton && <button onClick={handleHomeButtonClick}>홈</button>}
+      </div>
       {showCreateVote && (
         <CreateVote fetchVotes={fetchVotes} onReturnToList={returnToList} />
       )}
@@ -35,11 +38,12 @@ const ShowComponent = ({
         />
       )}
       {selectedVoteId && (
-        <VoteDetail voteId={selectedVoteId} onReturnToList={returnToList} />
+        <VoteDetail
+          voteId={selectedVoteId}
+          onReturnToList={returnToList}
+          fetchVotes={fetchVotes}
+        />
       )}
-      <div className="home_btn">
-        {showHomeButton && <button onClick={handleHomeButtonClick}>홈</button>}
-      </div>
     </div>
   );
 };
