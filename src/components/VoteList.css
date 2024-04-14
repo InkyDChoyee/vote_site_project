@@ -1,0 +1,28 @@
+h1 {
+    text-align: right;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.list {
+    height: 43vh;
+    margin: 20px;
+    padding-top: 20px;
+    overflow-y: auto;
+}
+
+.list::-webkit-scrollbar {
+    display: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+ul li button {
+    width: 100%;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
