@@ -72,6 +72,7 @@ function App() {
             selectedVoteId={selectedVoteId}
             setSelectedVoteId={setSelectedVoteId}
             fetchVotes={fetchVotes}
+            fetchVote={fetchVote}
             votes={votes}
             returnToList={returnToList}
             setShowHomeButton={setShowHomeButton} // setShowHomeButton 함수 전달

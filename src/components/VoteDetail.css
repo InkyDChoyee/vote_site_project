@@ -1,0 +1,39 @@
+.btn_box {
+    text-align: right;
+}
+
+.btn_box button {
+    padding: 2px 5px;
+    margin-left: 5px;
+}
+
+.vote_detail_title {
+    text-align: center;
+    margin-top: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.vote_detail_content {
+    text-align: center;
+    overflow-y: auto;
+    height: 37vh;
+}
+
+.vote_detail_content::-webkit-scrollbar {
+    display: none;
+}
+
+.vote_detail_content ul li button {
+    padding: 10px;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total_vote {
+    padding: 5px;
+    margin-top: 10px;
+    float: right;
+}

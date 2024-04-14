@@ -1,9 +1,8 @@
 // VoteList.js
 import React from "react";
-import axios from "axios";
 import "./VoteList.css";
 
-function VoteList({ fetchVotes, votes, onSelectVote }) {
+function VoteList({ votes, onSelectVote }) {
   return (
     <div>
       <h1>투표 목록</h1>

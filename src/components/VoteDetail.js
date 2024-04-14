@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import UpdateVote from "./UpdateVote";
+import "./VoteDetail.css";
 
 function VoteDetail({ voteId, onReturnToList, fetchVotes }) {
   const [vote, setVote] = useState(null);
@@ -82,22 +83,36 @@ function VoteDetail({ voteId, onReturnToList, fetchVotes }) {
         <UpdateVote voteId={voteId} onEditComplete={handleUpdateVote} />
       ) : vote ? (
         <div>
-          <h2>{vote.title}</h2>
-          <button onClick={handleEditClick}>투표 수정하기</button>
-          <button onClick={handleDeleteVote}>삭제</button>
-          <button onClick={onReturnToList}>목록으로 돌아가기</button>
-          <ul>
-            {vote.content.map((item, index) => (
-              <li key={index} onClick={() => handleClick(index)}>
-                {item.value} - {itemClicks[index] || 0} clicks (
-                {totalClicks === 0
-                  ? 0
-                  : (((itemClicks[index] || 0) / totalClicks) * 100).toFixed(2)}
-                %)
-              </li>
-            ))}
-          </ul>
-          <p>Total Clicks: {totalClicks}</p>
+          <div className="btn_box">
+            <button onClick={handleEditClick}>수정</button>
+            <button onClick={handleDeleteVote}>삭제</button>
+            <button onClick={onReturnToList}>목록</button>
+          </div>
+          <div className="vote_detail_title">
+            <h2>{vote.title}</h2>
+          </div>
+          <div className="vote_detail_content">
+            <ul>
+              {vote.content.map((item, index) => (
+                <li key={index} onClick={() => handleClick(index)}>
+                  <button>
+                    <span>{item.value} </span>
+                    <span>
+                      {itemClicks[index] || 0} clicks (
+                      {totalClicks === 0
+                        ? 0
+                        : (
+                            ((itemClicks[index] || 0) / totalClicks) *
+                            100
+                          ).toFixed(2)}
+                      %)
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <p className="total_vote">총 투표수: {totalClicks}</p>
         </div>
       ) : (
         <div>Loading...</div>

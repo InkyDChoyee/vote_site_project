@@ -16,6 +16,7 @@ const ShowComponent = ({
   selectedVoteId,
   setSelectedVoteId,
   fetchVotes,
+  fetchVote,
   votes,
   returnToList,
 }) => {
