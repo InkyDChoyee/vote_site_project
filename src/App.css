@@ -51,6 +51,10 @@ section {
   background-color: #fff;
 }
 
+.main_menu_btn button {
+  z-index: 1;
+}
+
 .main_menu_btn .show_vote_create {
   position: absolute;
   width: 50%;
@@ -72,4 +76,19 @@ section {
   width: 90%;
   height: 55vh;
   background-color: #f9f9f9;
+  position: relative;
+  padding: 20px;
+}
+
+.home_btn {
+  position: absolute;
+  margin: 5px;
+}
+
+.home_btn button {
+  padding: 5px;
+}
+
+.home_btn button img {
+  width: 20px;
 }
