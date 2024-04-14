@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./CreateVote.css";
 
 function UpdateVote({ voteId, onEditComplete }) {
   const [voteData, setVoteData] = useState({ title: "", content: [] });
@@ -49,8 +50,7 @@ function UpdateVote({ voteId, onEditComplete }) {
     <div>
       <h1>투표 수정하기</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          제목:
+        <div className="vote_title">
           <input
             type="text"
             value={voteData.title}
@@ -58,10 +58,8 @@ function UpdateVote({ voteId, onEditComplete }) {
               setVoteData({ ...voteData, title: e.target.value })
             }
           />
-        </label>
-        <br />
-        <label>
-          투표 항목:
+        </div>
+        <div className="vote_content">
           {voteData.content.map((option, index) => (
             <div key={index}>
               <input
@@ -71,12 +69,17 @@ function UpdateVote({ voteId, onEditComplete }) {
               />
             </div>
           ))}
-          <button type="button" onClick={handleAddOption}>
-            추가
+          <button
+            className="add_content_btn"
+            type="button"
+            onClick={handleAddOption}
+          >
+            항목 추가
           </button>
-        </label>
-        <br />
-        <button type="submit">저장</button>
+        </div>
+        <button className="save_btn" type="submit">
+          수정 완료
+        </button>
       </form>
     </div>
   );

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./CreateVote.css";
 
 function CreateVote({ fetchVotes, onReturnToList }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState([
+    { value: "" },
     { value: "" },
     { value: "" },
     { value: "" },
@@ -44,32 +46,36 @@ function CreateVote({ fetchVotes, onReturnToList }) {
     <div>
       <h1>투표 만들기</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          제목:
+        <div className="vote_title">
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            placeholder="투표 주제"
           />
-        </label>
-        <br />
-        <label>
-          투표 항목:
+        </div>
+        <div className="vote_content">
           {content.map((option, index) => (
             <div key={index}>
               <input
                 type="text"
                 value={option.value}
                 onChange={(e) => handleOptionChange(index, e.target.value)}
+                placeholder="투표 항목"
               />
             </div>
           ))}
-          <button type="button" onClick={handleAddOption}>
-            추가
+          <button
+            className="add_content_btn"
+            type="button"
+            onClick={handleAddOption}
+          >
+            항목 추가
           </button>
-        </label>
-        <br />
-        <button type="submit">저장</button>
+        </div>
+        <button className="save_btn" type="submit">
+          저장
+        </button>
       </form>
     </div>
   );
