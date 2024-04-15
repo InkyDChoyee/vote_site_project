@@ -59,6 +59,7 @@ section {
 
 .main_menu_btn button {
   z-index: 1;
+  font-size: 1.5rem;
 }
 
 .main_menu_btn .show_vote_create {
