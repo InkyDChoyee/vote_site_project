@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+button {
+  border-radius: 10px;
+  border: none;
+  box-shadow: 3px 3px 5px #ccc;
+}
+
 .container {
   background-color: #f9f9f9;
   height: 100vh;
