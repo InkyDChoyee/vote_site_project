@@ -19,7 +19,7 @@ function CreateVote({ fetchVotes, onReturnToList }) {
       console.log("Formatted Content:", formattedContent);
       console.log("Content Type:", typeof formattedContent); // content의 데이터 타입 확인
 
-      await axios.post("http://http://43.202.64.34:8000//vote", {
+      await axios.post("http://localhost:5000/vote", {
         title,
         content: formattedContent,
       });

@@ -13,9 +13,7 @@ function App() {
 
   async function fetchVote(voteId) {
     try {
-      const response = await axios.get(
-        `http://43.202.64.34:8000//vote/${voteId}`
-      );
+      const response = await axios.get(`http://localhost:5000/vote/${voteId}`);
       return response.data;
     } catch (error) {
       console.error("투표 불러오기 실패: ", error);
@@ -25,7 +23,7 @@ function App() {
 
   async function fetchVotes() {
     try {
-      const response = await axios.get("http://43.202.64.34:8000//votes");
+      const response = await axios.get("http://localhost:5000/votes");
       setVotes(response.data);
     } catch (error) {
       console.error("투표 목록 가져오기 실패:", error);
