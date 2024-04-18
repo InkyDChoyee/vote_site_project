@@ -16,8 +16,8 @@ function VoteDetail({ voteId, onReturnToList, fetchVotes }) {
   const fetchData = async () => {
     try {
       const [voteResponse, clickResponse] = await Promise.all([
-        axios.get(`http://localhost:5000/vote/${voteId}`),
-        axios.get(`http://localhost:5000/vote/${voteId}/clicks`),
+        axios.get(`http://43.202.64.34:8000//vote/${voteId}`),
+        axios.get(`http://43.202.64.34:8000//vote/${voteId}/clicks`),
       ]);
       const { data: voteData } = voteResponse;
       setVote(voteData);
@@ -43,7 +43,7 @@ function VoteDetail({ voteId, onReturnToList, fetchVotes }) {
 
   const handleClick = async (index) => {
     try {
-      await axios.post(`http://localhost:5000/vote/${voteId}/click`, {
+      await axios.post(`http://43.202.64.34:8000//vote/${voteId}/click`, {
         itemId: vote.content[index].value,
       });
       const updatedItemClicks = { ...itemClicks };
@@ -62,7 +62,7 @@ function VoteDetail({ voteId, onReturnToList, fetchVotes }) {
 
   const handleDeleteVote = async () => {
     try {
-      await axios.delete(`http://localhost:5000/vote/${voteId}`);
+      await axios.delete(`http://43.202.64.34:8000//vote/${voteId}`);
       console.log("투표가 삭제되었습니다.");
       fetchData();
       fetchVotes();
