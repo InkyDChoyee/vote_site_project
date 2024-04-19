@@ -1,17 +1,23 @@
 // server.js
+const http = require("http");
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const Vote = require("../src/models/vote");
 const config = require("../config/config");
+const path = require("path");
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://example.com"],
+    origin: [
+      "https://43.202.64.34:8000",
+      "http://localhost:3000",
+      "https://example.com",
+    ],
     credentials: true,
     optionsSuccessStatus: 200,
   })
@@ -141,7 +147,20 @@ app.get("/vote/:id/clicks", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+// 정적 파일 제공 (React 앱 빌드 파일)
+app.use(express.static(path.join(__dirname, "build")));
+
+// 모든 경로에 대해 React 앱으로 라우팅
+app.get("/*", (req, res) => {
+  res.set({
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+    Pragma: "no-cache",
+    Date: Date.now(),
+  });
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+const PORT = process.env.PORT || 8000;
+http.createServer(app).listen(PORT, () => {
   console.log(`서버가 포트 ${PORT}에서 실행 중입니다.`);
 });
