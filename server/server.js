@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const Vote = require("../src/models/vote");
-const config = require("../config/config");
+// const config = require("../config/config");
+require("dotenv").config(); // dotenv 로드
 const path = require("path");
 
 const app = express();
@@ -23,7 +24,8 @@ app.use(
   })
 );
 
-const uri = config.mongoURI;
+// const uri = config.mongoURI;
+const uri = process.env.MONGO_URI;
 
 mongoose
   .connect(uri, {
