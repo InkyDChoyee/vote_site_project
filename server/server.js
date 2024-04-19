@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const Vote = require("../src/models/vote");
+const config = require("../config/config");
 
 const app = express();
 
@@ -16,13 +17,18 @@ app.use(
   })
 );
 
+const uri = config.mongoURI;
+
 mongoose
-  .connect("mongodb://127.0.0.1:27017/vote_site")
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
-    console.log("MongoDB에 연결");
+    console.log("MongoDB에 연결되었습니다.");
   })
   .catch((error) => {
-    console.error("MongoDB 연결 오류", error);
+    console.error("MongoDB 연결 오류:", error);
   });
 
 app.get("/votes", async (req, res) => {
