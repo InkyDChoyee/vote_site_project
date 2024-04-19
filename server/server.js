@@ -15,11 +15,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: [
-      "https://43.202.64.34:8000",
-      "http://localhost:3000",
-      "https://example.com",
-    ],
+    origin: ["https://43.202.64.34:8000", "https://example.com"],
     credentials: true,
     optionsSuccessStatus: 200,
   })
