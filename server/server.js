@@ -1,4 +1,6 @@
 // server.js
+require("dotenv").config(); // dotenv 로드
+
 const http = require("http");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -6,7 +8,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const Vote = require("../src/models/vote");
 // const config = require("../config/config");
-require("dotenv").config(); // dotenv 로드
 const path = require("path");
 
 const app = express();
