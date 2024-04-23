@@ -148,7 +148,7 @@ app.get("/vote/:id/clicks", async (req, res) => {
 });
 
 // 정적 파일 제공 (React 앱 빌드 파일)
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "..", "build")));
 
 // 모든 경로에 대해 React 앱으로 라우팅
 app.get("/*", (req, res) => {
@@ -157,7 +157,7 @@ app.get("/*", (req, res) => {
     Pragma: "no-cache",
     Date: Date.now(),
   });
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
 const PORT = process.env.PORT || 8000;
