@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 // 투표 모델 스키마 정의
 const voteSchema = new mongoose.Schema({
@@ -18,6 +18,6 @@ const voteSchema = new mongoose.Schema({
 });
 
 // Vote 모델 생성
-const Vote = mongoose.model("Vote", voteSchema);
+const Vote = mongoose.model('Vote', voteSchema);
 
 module.exports = Vote;

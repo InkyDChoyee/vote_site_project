@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./CreateVote.css";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './CreateVote.css';
 
 function UpdateVote({ voteId, onEditComplete }) {
-  const [voteData, setVoteData] = useState({ title: "", content: [] });
+  const [voteData, setVoteData] = useState({ title: '', content: [] });
 
   useEffect(() => {
     const fetchVote = async () => {
@@ -13,7 +13,7 @@ function UpdateVote({ voteId, onEditComplete }) {
         );
         setVoteData(response.data);
       } catch (error) {
-        console.error("투표 정보 불러오기 실패:", error);
+        console.error('투표 정보 불러오기 실패:', error);
       }
     };
 
@@ -31,7 +31,7 @@ function UpdateVote({ voteId, onEditComplete }) {
   const handleAddOption = () => {
     setVoteData((prevData) => ({
       ...prevData,
-      content: [...prevData.content, { value: "" }],
+      content: [...prevData.content, { value: '' }],
     }));
   };
 
@@ -39,10 +39,10 @@ function UpdateVote({ voteId, onEditComplete }) {
     e.preventDefault();
     try {
       await axios.put(`http://localhost:5000/vote/${voteId}`, voteData);
-      alert("투표가 업데이트되었습니다.");
+      alert('투표가 업데이트되었습니다.');
       onEditComplete(); // 수정이 완료되면 부모 컴포넌트에 알림
     } catch (error) {
-      console.error("투표 업데이트 실패:", error);
+      console.error('투표 업데이트 실패:', error);
     }
   };
 
@@ -72,8 +72,7 @@ function UpdateVote({ voteId, onEditComplete }) {
           <button
             className="add_content_btn"
             type="button"
-            onClick={handleAddOption}
-          >
+            onClick={handleAddOption}>
             항목 추가
           </button>
         </div>

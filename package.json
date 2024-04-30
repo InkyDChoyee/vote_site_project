@@ -20,9 +20,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm-run-all -p start:client start:server",
+    "start": "npm-run-all -p start:client start:server start:database",
     "start:client": "react-scripts start",
     "start:server": "cd server && node server.js",
+    "start:database": "mongod",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

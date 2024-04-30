@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./App.css";
-import ShowComponent from "./components/ShowComponent";
-import MainMenuButton from "./components/MainMenuButton";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './App.css';
+import ShowComponent from './components/ShowComponent';
+import MainMenuButton from './components/MainMenuButton';
 
 function App() {
   const [selectedVoteId, setSelectedVoteId] = useState(null);
@@ -14,21 +14,23 @@ function App() {
   async function fetchVote(voteId) {
     try {
       const response = await axios.get(
-        `https://43.202.64.34:8000/vote/${voteId}`
+        // `http://43.202.64.34:8000/vote/${voteId}`
+        `http://localhost:5000/vote/${voteId}`
       );
       return response.data;
     } catch (error) {
-      console.error("투표 불러오기 실패: ", error);
+      console.error('투표 불러오기 실패: ', error);
       return null;
     }
   }
 
   async function fetchVotes() {
     try {
-      const response = await axios.get("https://43.202.64.34:8000/votes");
+      // const response = await axios.get('http://43.202.64.34:8000/votes');
+      const response = await axios.get('http://localhost:5000/votes');
       setVotes(response.data);
     } catch (error) {
-      console.error("투표 목록 가져오기 실패:", error);
+      console.error('투표 목록 가져오기 실패:', error);
     }
   }
 

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import UpdateVote from "./UpdateVote";
-import "./VoteDetail.css";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import UpdateVote from './UpdateVote';
+import './VoteDetail.css';
 
 function VoteDetail({ voteId, onReturnToList, fetchVotes }) {
   const [vote, setVote] = useState(null);
@@ -16,8 +16,10 @@ function VoteDetail({ voteId, onReturnToList, fetchVotes }) {
   const fetchData = async () => {
     try {
       const [voteResponse, clickResponse] = await Promise.all([
-        axios.get(`https://43.202.64.34:8000/vote/${voteId}`),
-        axios.get(`https://43.202.64.34:8000/vote/${voteId}/clicks`),
+        // axios.get(`http://43.202.6.49:8000/vote/${voteId}`),
+        // axios.get(`http://43.202.6.49:8000/vote/${voteId}/clicks`),
+        axios.get(`http://localhost:5000/vote/${voteId}`),
+        axios.get(`http://localhost:5000/vote/${voteId}/clicks`),
       ]);
       const { data: voteData } = voteResponse;
       setVote(voteData);
@@ -37,22 +39,23 @@ function VoteDetail({ voteId, onReturnToList, fetchVotes }) {
         );
       }
     } catch (error) {
-      console.error("데이터 가져오기 실패: ", error);
+      console.error('데이터 가져오기 실패: ', error);
     }
   };
 
   const handleClick = async (index) => {
     try {
-      await axios.post(`https://43.202.64.34:8000/vote/${voteId}/click`, {
+      // await axios.post(`http://43.202.6.49:8000/vote/${voteId}/click`, {
+      await axios.post(`http://localhost:5000/vote/${voteId}/click`, {
         itemId: vote.content[index].value,
       });
       const updatedItemClicks = { ...itemClicks };
       updatedItemClicks[index] = (updatedItemClicks[index] || 0) + 1;
       setItemClicks(updatedItemClicks);
       setTotalClicks(totalClicks + 1);
-      console.log("클릭 정보가 서버에 전송되었습니다.");
+      console.log('클릭 정보가 서버에 전송되었습니다.');
     } catch (error) {
-      console.error("클릭 정보 전송 실패: ", error);
+      console.error('클릭 정보 전송 실패: ', error);
     }
   };
 
@@ -62,13 +65,14 @@ function VoteDetail({ voteId, onReturnToList, fetchVotes }) {
 
   const handleDeleteVote = async () => {
     try {
-      await axios.delete(`https://43.202.64.34:8000/vote/${voteId}`);
-      console.log("투표가 삭제되었습니다.");
+      // await axios.delete(`http://43.202.6.49:8000/vote/${voteId}`);
+      await axios.delete(`http://localhost:5000/vote/${voteId}`);
+      console.log('투표가 삭제되었습니다.');
       fetchData();
       fetchVotes();
       await onReturnToList();
     } catch (error) {
-      console.error("투표 삭제 실패: ", error);
+      console.error('투표 삭제 실패: ', error);
     }
   };
 

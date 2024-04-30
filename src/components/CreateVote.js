@@ -1,33 +1,34 @@
-import React, { useState } from "react";
-import axios from "axios";
-import "./CreateVote.css";
+import React, { useState } from 'react';
+import axios from 'axios';
+import './CreateVote.css';
 
 function CreateVote({ fetchVotes, onReturnToList }) {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState([
-    { value: "" },
-    { value: "" },
-    { value: "" },
-    { value: "" },
+    { value: '' },
+    { value: '' },
+    { value: '' },
+    { value: '' },
   ]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formattedContent = content.filter((obj) => obj.value !== "");
+      const formattedContent = content.filter((obj) => obj.value !== '');
 
-      console.log("Formatted Content:", formattedContent);
-      console.log("Content Type:", typeof formattedContent); // content의 데이터 타입 확인
+      console.log('Formatted Content:', formattedContent);
+      console.log('Content Type:', typeof formattedContent); // content의 데이터 타입 확인
 
-      await axios.post("https://43.202.64.34:8000/vote", {
+      // await axios.post("http://43.202.6.49:8000/vote", {
+      await axios.post('http://localhost:5000/vote', {
         title,
         content: formattedContent,
       });
-      alert("투표가 저장되었습니다.");
+      alert('투표가 저장되었습니다.');
       fetchVotes();
       onReturnToList();
     } catch (error) {
-      console.error("투표 저장 실패:", error);
+      console.error('투표 저장 실패:', error);
     }
   };
 
@@ -35,11 +36,11 @@ function CreateVote({ fetchVotes, onReturnToList }) {
     const updatedOptions = [...content];
     updatedOptions[index] = { value: value }; // 사용자가 입력한 값을 value 속성에 저장
     setContent(updatedOptions);
-    console.log("Updated Options:", updatedOptions);
+    console.log('Updated Options:', updatedOptions);
   };
 
   const handleAddOption = () => {
-    setContent([...content, { value: "" }]); // 새로운 항목 추가
+    setContent([...content, { value: '' }]); // 새로운 항목 추가
   };
 
   return (
@@ -68,8 +69,7 @@ function CreateVote({ fetchVotes, onReturnToList }) {
           <button
             className="add_content_btn"
             type="button"
-            onClick={handleAddOption}
-          >
+            onClick={handleAddOption}>
             항목 추가
           </button>
         </div>
