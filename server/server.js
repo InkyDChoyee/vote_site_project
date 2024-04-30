@@ -148,7 +148,7 @@ app.get('/vote/:id/clicks', async (req, res) => {
   }
 });
 
-app.post('/user', async (req, res) => {
+app.post('/join', async (req, res) => {
   try {
     const { userID, password } = req.body;
 
