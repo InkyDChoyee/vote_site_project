@@ -57,7 +57,12 @@ function App() {
       <nav></nav>
       <div className="content_box">
         <section>
-          <div className="section_top"></div>
+          <div className="section_top">
+            <div className="join">
+              <button>회원가입</button>
+              <button>로그인</button>
+            </div>
+          </div>
           <MainMenuButton
             showHomeButton={showHomeButton}
             setShowHomeButton={setShowHomeButton} // setShowHomeButton 함수 전달
