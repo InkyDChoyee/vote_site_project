@@ -168,6 +168,9 @@ app.post('/join', async (req, res) => {
   }
 });
 
+const voteRoutes = require('./routes/vote');
+app.use('/vote', voteRoutes);
+
 // 정적 파일 제공 (React 앱 빌드 파일)
 app.use(express.static(path.join(__dirname, '..', 'build')));
 
