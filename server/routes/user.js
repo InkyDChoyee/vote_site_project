@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
+const User = require('../../src/models/user'); // User 모델을 가져옵니다.
 
 // 회원가입 라우트
 router.post('/signup', async (req, res) => {

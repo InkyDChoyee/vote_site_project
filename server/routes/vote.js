@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { requireLogin, isVoteAuthor } = require('../middleware/authorization');
-const Vote = require('../models/vote');
+const {
+  requireLogin,
+  isVoteAuthor,
+} = require('../../src/middleware/authorization');
+const Vote = require('../../src/models/vote');
 
 // 투표 목록 가져오기
 router.get('/', async (req, res) => {
