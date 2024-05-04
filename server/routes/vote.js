@@ -7,7 +7,7 @@ const {
 const Vote = require('../../src/models/vote');
 
 // 투표 목록 가져오기
-router.get('/', async (req, res) => {
+router.get('vote/', async (req, res) => {
   try {
     const votes = await Vote.find();
     res.status(200).json(votes);
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 });
 
 // 특정 투표 가져오기
-router.get('/:id', async (req, res) => {
+router.get('vote/:id', async (req, res) => {
   try {
     const vote = await Vote.findById(req.params.id);
     if (!vote) {
@@ -34,7 +34,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // 투표 작성하기
-router.post('/', async (req, res) => {
+router.post('vote/', async (req, res) => {
   try {
     const { title, content } = req.body;
     const vote = new Vote({ title, content });
@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
 });
 
 // 투표 수정하기
-router.put('/:id', async (req, res) => {
+router.put('vote/:id', async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
 
@@ -67,7 +67,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // 투표 삭제하기
-router.delete('/:id', async (req, res) => {
+router.delete('vote/:id', async (req, res) => {
   try {
     const { id } = req.params;
     await Vote.findByIdAndDelete(id);
@@ -80,7 +80,7 @@ router.delete('/:id', async (req, res) => {
 });
 
 // 투표 항목의 클릭 정보 업데이트하기
-router.post('/:id/click', async (req, res) => {
+router.post('vote/:id/click', async (req, res) => {
   try {
     const { id } = req.params;
     const { itemId } = req.body;
@@ -102,7 +102,7 @@ router.post('/:id/click', async (req, res) => {
 });
 
 // 투표 항목의 클릭 수 가져오기
-router.get('/:id/clicks', async (req, res) => {
+router.get('vote/:id/clicks', async (req, res) => {
   try {
     const { id } = req.params;
     const vote = await Vote.findById(id);
