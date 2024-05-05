@@ -27,13 +27,13 @@ button {
 nav {
   height: 10vh;
   width: 100%;
-  background-color: #ccc;
+  background-color: #FFFB94;
 }
 
 .footer {
   height: 5vh;
   width: 100%;
-  background-color: #ccc;
+  background-color: #FFFB94;
 }
 
 section {
@@ -43,12 +43,15 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 15px;
 }
 
 .section_top {
   height: 7.5vh;
   width: 100%;
-  background-color: #ccc;
+  background-color: #fff;
+  border-radius: 15px 15px 0 0 ;
+  border-bottom: 3px solid #FFFB94;;
 }
 
 .main_menu_btn {
@@ -82,9 +85,10 @@ section {
   margin-top: 3.5vh;
   width: 90%;
   height: 55vh;
-  background-color: #f9f9f9;
+  background-color: #fafafa;
   position: relative;
   padding: 20px;
+  border-radius: 15px;
 }
 
 .home_btn {
@@ -93,6 +97,7 @@ section {
 
 .home_btn button {
   padding: 5px;
+  background-color: #FFFB94;
 }
 
 .home_btn button img {

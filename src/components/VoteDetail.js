@@ -83,27 +83,27 @@ function VoteDetail({ voteId, onReturnToList, fetchVotes }) {
 
   return (
     <div>
-      <div className="btn_box">
-        <span className="show_scroll">
-          <button>✏️</button>
-          <ul className="btn_scroll">
-            <li onClick={handleEditClick}>
-              <button>수정</button>
-            </li>
-            <li onClick={handleDeleteVote}>
-              <button>삭제</button>
-            </li>
-            <li onClick={onReturnToList}>
-              <button>목록</button>
-            </li>
-          </ul>
-        </span>
-      </div>
       {isEditing ? (
         <UpdateVote voteId={voteId} onEditComplete={handleUpdateVote} />
       ) : vote ? (
         <div>
           <div className="vote_detail_title">
+            <div className="btn_box">
+              <span className="show_scroll">
+                <button>✏️</button>
+                <ul className="btn_scroll">
+                  <li onClick={handleEditClick}>
+                    <button>수정</button>
+                  </li>
+                  <li onClick={handleDeleteVote}>
+                    <button>삭제</button>
+                  </li>
+                  <li onClick={onReturnToList}>
+                    <button>목록</button>
+                  </li>
+                </ul>
+              </span>
+            </div>
             <h2>{vote.title}</h2>
           </div>
           <div className="vote_detail_content">
