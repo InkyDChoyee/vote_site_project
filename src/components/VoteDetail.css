@@ -1,6 +1,5 @@
 .btn_box {
     text-align: right;
-    padding-right: 20px;
 }
 
 .btn_box button {
@@ -40,8 +39,21 @@
     float: right;
 }
 
-.btn_scroll {
+.show_scroll {
     position: relative;
+}
+
+.show_scroll button {
+    border: none;
+    width: 50px;
+    height: 33px;
+    box-shadow: none;
+    background: none;
+}
+
+.show_scroll p {
+    text-align: right;
+    float: right;
 }
 
 .btn_scroll{
@@ -51,6 +63,5 @@
 .show_scroll:hover .btn_scroll {
     display: block;
     position: absolute;
-    right: 20px;
 }
 
