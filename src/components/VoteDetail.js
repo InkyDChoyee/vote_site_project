@@ -88,13 +88,13 @@ function VoteDetail({ voteId, onReturnToList, fetchVotes }) {
           <button>✏️</button>
           <ul className="btn_scroll">
             <li onClick={handleEditClick}>
-              <p>수정</p>
+              <button>수정</button>
             </li>
             <li onClick={handleDeleteVote}>
-              <p>삭제</p>
+              <button>삭제</button>
             </li>
             <li onClick={onReturnToList}>
-              <p>목록</p>
+              <button>목록</button>
             </li>
           </ul>
         </span>
