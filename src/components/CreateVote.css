@@ -1,9 +1,3 @@
-h1 {
-    text-align: right;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-}
-
 .vote_title {
     text-align: center;
 }
@@ -24,6 +18,8 @@ h1 {
     margin: 20px;
     font-size: 1.5rem;
     text-align: center;
+    border: none;
+    border-bottom: 1px solid #fffb94;
 }
 
 .vote_content input {
@@ -31,6 +27,8 @@ h1 {
     padding: 5px;
     margin-top: 10px;
     font-size: 1.5rem;
+    border: none;
+    border-bottom: 1px solid #fffb94;
 }
 
 .add_content_btn {
@@ -38,10 +36,14 @@ h1 {
     padding: 5px;
     margin-top: 10px;
     font-size: 1.5rem;
+    background-color: #fcfbe0;
+    box-shadow: 3px 3px 3px #fffb94;
 }
 
 .save_btn {
     float: right;
     margin: 15px;
     padding: 5px 20px;
+    background-color: #fffb94;
+    box-shadow: 3px 3px 3px #a39f32;
 }
