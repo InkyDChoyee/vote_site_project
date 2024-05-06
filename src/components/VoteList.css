@@ -25,4 +25,6 @@ ul li button {
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 1.5rem;
+    background-color: #fff;
+    border-bottom: 1px solid #FFFB94;
 }
